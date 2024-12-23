@@ -1,2 +1,2 @@
 # Boersenprogramm
-Pythonprogramm das verscheidene Börsenwerte ausliest
+Pythonprogramm das verschiedene Börsenwerte ausliest
