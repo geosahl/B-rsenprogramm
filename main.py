@@ -47,4 +47,6 @@ tk.Button(app, text="Open finanzenzero", command=open_finanzenzero).pack()
 data_text = tk.Text(app)
 data_text.pack()
 
+tk.Button(app, text="Close", command=app.quit).pack()
+
 app.mainloop()
