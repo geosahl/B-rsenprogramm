@@ -1,58 +1,48 @@
 import tkinter as tk
-from tkinter import messagebox
-import webbrowser
-import yfinance as yf
+from tkinter import ttk
 import requests
-import german_companies
 
-def fetch_stock_data(stock_symbol):
-    stock = yf.Ticker(stock_symbol)
-    hist = stock.history(period="3mo")
-    pe_ratio = stock.info['forwardPE']
-    return hist, pe_ratio
+def fetch_german_companies():
+    return ["SAP", "Siemens", "Volkswagen", "BMW", "BASF", "Deutsche Bank", "Allianz", "Daimler", "Adidas", "Lufthansa"]
 
-def open_finance_net():
-    webbrowser.open("https://www.finance.net")
+def fetch_stock_data(company):
+    # Placeholder function to fetch stock data for the selected company
+    return {
+        "KGV": 15.2,
+        "Dividend Yield": 2.5,
+        "Market Cap": "100B",
+        "Stock Trend": [100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150, 155]
+    }
 
-def open_finanzenzero():
-    webbrowser.open("https://www.finanzenzero.com")
+def display_stock_data(stock_data):
+    # Placeholder function to display stock data in a tabular format
+    print("Displaying stock data:")
+    for key, value in stock_data.items():
+        print(f"{key}: {value}")
 
 def show_stock_data():
-    stock_symbol = stock_entry.get()
-    purchase_price = purchase_price_entry.get()
-    if not stock_symbol:
-        messagebox.showerror("Error", "Please enter a stock symbol")
-        return
-    hist, pe_ratio = fetch_stock_data(stock_symbol)
-    data_text.delete(1.0, tk.END)
-    data_text.insert(tk.END, f"Stock: {stock_symbol}\n")
-    data_text.insert(tk.END, f"Purchase Price: {purchase_price}\n")
-    data_text.insert(tk.END, f"P/E Ratio: {pe_ratio}\n")
-    data_text.insert(tk.END, "Price Trend (Last 3 Months):\n")
-    data_text.insert(tk.END, hist.to_string())
+    selected_company = company_dropdown.get()
+    stock_data = fetch_stock_data(selected_company)
+    display_stock_data(stock_data)
 
-def open_german_companies():
-    german_companies.create_german_companies_window(app, stock_entry)
+root = tk.Tk()
+root.title("Börsenprogramm")
 
-app = tk.Tk()
-app.title("Börsenprogramm")
+companies = fetch_german_companies()
+company_dropdown = ttk.Combobox(root, values=companies)
+company_dropdown.pack()
 
-tk.Label(app, text="Enter Stock Symbol:").pack()
-stock_entry = tk.Entry(app)
-stock_entry.pack()
+show_data_button = tk.Button(root, text="Show Stock Data", command=show_stock_data)
+show_data_button.pack()
 
-tk.Label(app, text="Enter Purchase Price:").pack()
-purchase_price_entry = tk.Entry(app)
-purchase_price_entry.pack()
+# Add a section to display stock data for 10 big German companies in a tabular format
+stock_data_frame = ttk.Frame(root)
+stock_data_frame.pack()
 
-tk.Button(app, text="Show Stock Data", command=show_stock_data).pack()
-tk.Button(app, text="Open finance.net", command=open_finance_net).pack()
-tk.Button(app, text="Open finanzenzero", command=open_finanzenzero).pack()
-tk.Button(app, text="Select German Company", command=open_german_companies).pack()
+for company in companies:
+    stock_data = fetch_stock_data(company)
+    ttk.Label(stock_data_frame, text=f"{company}:").pack()
+    for key, value in stock_data.items():
+        ttk.Label(stock_data_frame, text=f"{key}: {value}").pack()
 
-data_text = tk.Text(app)
-data_text.pack()
-
-tk.Button(app, text="Close", command=app.quit).pack()
-
-app.mainloop()
+root.mainloop()

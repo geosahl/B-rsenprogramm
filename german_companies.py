@@ -1,29 +1,25 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import ttk
 import requests
 
 def fetch_german_companies():
-    response = requests.get("https://api.example.com/german_companies")
-    if response.status_code == 200:
-        return response.json()
-    else:
-        messagebox.showerror("Error", "Failed to fetch German companies")
-        return []
+    # Placeholder function to fetch the list of German companies from an API
+    return ["SAP", "Siemens", "Volkswagen", "BMW", "BASF", "Deutsche Bank", "Allianz", "Daimler", "Adidas", "Lufthansa"]
 
-def create_german_companies_window(app, stock_entry):
-    german_companies_window = tk.Toplevel(app)
+def show_company_data(company):
+    # Placeholder function to fetch and display stock data for the selected company
+    print(f"Displaying data for {company}")
+
+def open_german_companies_window():
+    german_companies_window = tk.Toplevel()
     german_companies_window.title("German Companies")
 
-    def on_company_select(event):
-        selected_company = company_listbox.get(company_listbox.curselection())
-        stock_entry.delete(0, tk.END)
-        stock_entry.insert(0, selected_company)
+    companies = fetch_german_companies()
+    selected_company = tk.StringVar()
+    selected_company.set(companies[0])
 
-    german_companies = fetch_german_companies()
+    company_dropdown = ttk.Combobox(german_companies_window, textvariable=selected_company, values=companies)
+    company_dropdown.pack()
 
-    tk.Label(german_companies_window, text="Select a German Company:").pack()
-    company_listbox = tk.Listbox(german_companies_window)
-    company_listbox.pack()
-    for company in german_companies:
-        company_listbox.insert(tk.END, company)
-    company_listbox.bind("<<ListboxSelect>>", on_company_select)
+    show_data_button = tk.Button(german_companies_window, text="Show Company Data", command=lambda: show_company_data(selected_company.get()))
+    show_data_button.pack()
