@@ -1,27 +1,86 @@
-# Boersenprogramm
-Pythonprogramm das verschiedene Börsenwerte ausliest
+Beschreibung des Börsenprogramms
 
-## Funktionalität
-Das Programm ermöglicht es Benutzern, Aktien auszuwählen und Daten der ausgewählten Aktien anzuzeigen. Die Daten umfassen den Kursverlauf der letzten 3 Monate, ob die Aktie in diesem Zeitraum monatlich gestiegen ist, das KGV und weitere Daten, die von Yahoo Finance zur Verfügung gestellt werden. Benutzer können auch einen Kaufkurs eingeben. Es gibt Schaltflächen, um finance.net und finanzenzero zu öffnen.
+Zweck des Programms
 
-## Anleitung
-1. Starten Sie das Programm.
-2. Geben Sie das Aktiensymbol in das entsprechende Feld ein.
-3. Geben Sie den Kaufkurs in das entsprechende Feld ein.
-4. Klicken Sie auf "Show Stock Data", um die Daten der ausgewählten Aktie anzuzeigen.
-5. Klicken Sie auf "Open finance.net", um die Website finance.net zu öffnen.
-6. Klicken Sie auf "Open finanzenzero", um die Website finanzenzero zu öffnen.
+Das Programm sammelt und bewertet Informationen sowie Nachrichten zu Aktien und generiert darauf basierend Kaufempfehlungen. Es nutzt zwei APIs:
 
-## Neue Funktionalitäten
+Financial Modeling Prep (https://site.financialmodelingprep.com/) für Finanzkennzahlen.
 
-- Apple wird jetzt in der Liste der deutschen Unternehmen angezeigt.
-- Das Hauptfenster zeigt jetzt standardmäßig die Aktieninformationen von Apple an.
-- Der Aktienkursverlauf der letzten drei Monate und das KGV werden angezeigt.
+GDELT Project (https://www.gdeltproject.org/) für Nachrichtenanalyse.
 
-## Anweisungen zur Nutzung des Programms
+Die Daten werden in einer CSV-Datei gespeichert, die zur weiteren Analyse in Excel verwendet werden kann.
 
-1. Starten Sie das Programm, indem Sie die `main.py` Datei ausführen.
-2. Das Hauptfenster wird geöffnet und zeigt standardmäßig die Aktieninformationen von Apple an.
-3. Um Aktieninformationen für ein anderes Unternehmen abzurufen, geben Sie das Aktiensymbol in das Eingabefeld ein und klicken Sie auf "Fetch Stock Data".
-4. Um eine Liste der deutschen Unternehmen anzuzeigen, klicken Sie auf die Schaltfläche "German Companies".
-5. Wählen Sie ein Unternehmen aus der Liste aus, um die Aktieninformationen abzurufen.
+Seiten des Programms
+
+1. Hauptseite
+
+Auf der Hauptseite werden die fünf besten Firmen angezeigt, inklusive:
+
+Firmenname
+
+Kurschart
+
+KGV (Kurs-Gewinn-Verhältnis)
+
+Dividende
+
+Ex-Dividenden-Datum
+
+Gesamtbewertung
+
+Zusätzlich gibt es Buttons, um auf weitere Seiten zu gelangen:
+
+"Firmen aufnehmen" (Weiterleitung zur zweiten Seite)
+
+"Firma analysieren" (Weiterleitung zur dritten Seite)
+
+"CSV-Datei anzeigen" (Weiterleitung zur vierten Seite)
+
+2. Firmen aufnehmen
+
+Diese Seite zeigt eine Liste von bereits gespeicherten Firmen mit Daten.
+Zusätzlich gibt es:
+
+Ein Eingabefeld zur Eingabe weiterer Firmen.
+
+Eine Funktion, um das Börsenkürzel automatisch zu ermitteln.
+
+Einen "Hinzufügen"-Button, um neue Firmen zur Datenbank hinzuzufügen.
+
+3. Firma analysieren
+
+Diese Seite enthält eine sortierbare Tabelle mit den gespeicherten Firmen. Spalten:
+
+Kleiner Chart
+
+KGV
+
+Dividende
+
+Ex-Dividenden-Datum
+
+Bewertung
+
+Nutzer können die Tabelle nach verschiedenen Kriterien sortieren.
+
+4. CSV-Datei anzeigen
+
+Auf dieser Seite wird der Inhalt der CSV-Datei dargestellt. Alle gespeicherten Informationen werden in Tabellenform angezeigt, sodass sie zur Weiterverarbeitung in Excel exportiert werden können.
+
+Zusammenfassung
+
+Das Börsenprogramm dient der Sammlung, Bewertung und Darstellung von Aktieninformationen. Es ermöglicht die Analyse der besten Aktien, das Hinzufügen neuer Unternehmen sowie die Verwaltung und Sortierung von Finanzdaten. Die CSV-Speicherung stellt sicher, dass alle relevanten Informationen einfach weiterverwendet werden können.
+
+boersenprogramm/
+│── main.py               # Startpunkt der Anwendung (GUI oder CLI)
+│── config.py             # API-Keys und Konfigurationsvariablen
+│── data_handler.py       # Laden und Speichern von CSV-Daten
+│── api_fetcher.py        # Abruf von Finanz- und Nachrichten-Daten über APIs
+│── analysis.py           # Bewertung und Verarbeitung der Daten
+│── ui/                   # UI-Module (z.B. Flask, Streamlit oder Tkinter)
+│   ├── main_page.py      # Hauptseite mit Top 5 Firmen
+│   ├── add_company.py    # Firmenaufnahme
+│   ├── analysis_page.py  # Tabellenansicht zur Analyse
+│   ├── csv_viewer.py     # CSV-Datei-Anzeige
+│── assets/               # Statische Dateien (z.B. Icons, CSS)
+│── tests/                # Unit-Tests für die Module
